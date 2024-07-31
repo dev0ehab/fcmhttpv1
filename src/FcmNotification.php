@@ -12,12 +12,12 @@ class FcmNotification
 {
     protected $title;
     protected $body;
-    protected $icon;
-    protected $click_action;
+    protected $image;
+    protected $additionalData;
     protected $token;
     protected $topic;
 
-    /** 
+    /**
      *Title of the notification.
      *@param string $title
      */
@@ -27,23 +27,13 @@ class FcmNotification
         return $this;
     }
 
-    /** 
+    /**
      *Body of the notification.
      *@param string $body
      */
     public function setBody($body)
     {
         $this->body = $body;
-        return $this;
-    }
-
-    /** 
-     *Icon of the notification.
-     *@param string $icon
-     */
-    public function setIcon($icon)
-    {
-        $this->icon = $icon;
         return $this;
     }
 
@@ -58,12 +48,32 @@ class FcmNotification
     }
 
     /**
-     *Token used to send notification to specific device. Unusable with setTopic() at same time.
+     *Token used to send notification to specific device. Unusable with setToken() at same time.
      *@param string $string
      */
     public function setToken($token)
     {
         $this->token = $token;
+        return $this;
+    }
+
+    /**
+     *Image of the notification.
+     *@param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     *Additional data of the notification.
+     *@param array $additionalData
+     */
+    public function setAdditionalData($additionalData)
+    {
+        $this->additionalData = $additionalData;
         return $this;
     }
 
@@ -106,48 +116,24 @@ class FcmNotification
             throw new Exception('Empty notification body. Please add a body to the notification with the setBody() method');
         }
 
-        // Icon verification
-        if ($this->icon !=null && !file_exists(public_path($this->icon))) {
-            throw new Exception("Icon not found. Please verify the path of your icon(Path of the icon you tried to set: " . asset($this->icon));
-        }
-
         return $this->prepareSend();
     }
 
     private function prepareSend()
     {
-        if (isset($this->topic)) {
-            $data = [
-                "message" => [
-                    "topic" => $this->topic,
-                    "webpush" => [
-                        "notification" => [
-                            "title" => $this->title,
-                            "body" => $this->body,
-                            "icon" => $this->icon !=null ? asset($this->icon) : '',
-                            "click_action" => $this->click_action ?? ''
-                        ],
-                    ]
-                ]
-            ];
-        } elseif (isset($this->token)) {
-            $data = [
-                "message" => [
-                    "token" => $this->token,
-                    "webpush" => [
-                        "notification" => [
-                            "title" => $this->title,
-                            "body" => $this->body,
-                            "icon" => $this->icon !=null ? asset($this->icon) : '',
-                            "click_action" => $this->click_action ?? ''
-                        ],
-                    ]
-                ]
-            ];
-        }
+        $data = [
+            "message" => [
+                "token" => $this->token,
+                "notification" => [
+                    "title" => $this->title,
+                    "body" => $this->body,
+                    'image' => $this->image ?? '',
+                ],
+                'data' => $this->additionalData ?? [],
+            ]
+        ];
 
         $encodedData = json_encode($data);
-
         return $this->handleSend($encodedData);
     }
 
@@ -159,7 +145,7 @@ class FcmNotification
 
         $headers = [
             'Authorization' => 'Bearer ' . $oauthToken,
-            'Content-Type' =>  'application/json',
+            'Content-Type' => 'application/json',
         ];
 
         $client = new Client();
