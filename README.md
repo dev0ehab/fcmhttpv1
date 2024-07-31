@@ -3,21 +3,21 @@
  A [Laravel](https://laravel.com/) package that lets you use the new FCM Http V1 API and send push notifications with ease.
  
  ## Summary
- 1. [Install](https://github.com/agence-appy/fcmhttpv1#install)
-    - [Firebase](https://github.com/agence-appy/fcmhttpv1#firebase)
-    - [Laravel](https://github.com/agence-appy/fcmhttpv1#laravel)
-    - [Laravel PWA](https://github.com/agence-appy/fcmhttpv1#laravel-pwa)
- 2. [Usage](https://github.com/agence-appy/fcmhttpv1#usage)
-    - [Topics](https://github.com/agence-appy/fcmhttpv1#firebase)
-      - [Subscribe](https://github.com/agence-appy/fcmhttpv1#subscribe)
-      - [Unsubscribe](https://github.com/agence-appy/fcmhttpv1#unsubscribe)
-      - [List subscriptions](https://github.com/agence-appy/fcmhttpv1#list-subscriptions)
-    - [Notification](https://github.com/agence-appy/fcmhttpv1#notification)
-      - [Send to unique token](https://github.com/agence-appy/fcmhttpv1#send-to-unique-token)
-      - [Send to topic](https://github.com/agence-appy/fcmhttpv1#send-to-topic)
+ 1. [Install](https://github.com/agence-dev0ehab/fcmhttpv1#install)
+    - [Firebase](https://github.com/agence-dev0ehab/fcmhttpv1#firebase)
+    - [Laravel](https://github.com/agence-dev0ehab/fcmhttpv1#laravel)
+    - [Laravel PWA](https://github.com/agence-dev0ehab/fcmhttpv1#laravel-pwa)
+ 2. [Usage](https://github.com/agence-dev0ehab/fcmhttpv1#usage)
+    - [Topics](https://github.com/agence-dev0ehab/fcmhttpv1#firebase)
+      - [Subscribe](https://github.com/agence-dev0ehab/fcmhttpv1#subscribe)
+      - [Unsubscribe](https://github.com/agence-dev0ehab/fcmhttpv1#unsubscribe)
+      - [List subscriptions](https://github.com/agence-dev0ehab/fcmhttpv1#list-subscriptions)
+    - [Notification](https://github.com/agence-dev0ehab/fcmhttpv1#notification)
+      - [Send to unique token](https://github.com/agence-dev0ehab/fcmhttpv1#send-to-unique-token)
+      - [Send to topic](https://github.com/agence-dev0ehab/fcmhttpv1#send-to-topic)
  
  ## Install
-If your firebase project is already setup, you can skip that part and go to the [Usage section](https://github.com/agence-appy/fcmhttpv1#usage) section.  
+If your firebase project is already setup, you can skip that part and go to the [Usage section](https://github.com/agence-dev0ehab/fcmhttpv1#usage) section.  
 
 The installation will take two steps. First we will build and manage the firebase project through the Firebase Console. Then we will see how you can implement the Firebase FCM Http V1 in your awesome Laravel project.
 
@@ -63,13 +63,13 @@ FCM_API_SERVER_KEY=<api server key step 8-9 of firebase install>
 ```
 4. Package installation
 ```
-composer require appy/fcmhttpv1
+composer require dev0ehab/fcmhttpv1
 ```
 
 5. Register the provider in config/app.php
 
 ```php
-Appy\FcmHttpV1\FcmProvider::class,
+dev0ehab\FcmHttpV1\FcmProvider::class,
 ```
 
 6. Publish config file
@@ -117,7 +117,7 @@ Topics are used to make groups of device tokens. They will allow you to send not
 To subscribe tokens to a topic :
 
 ```php
-use Appy\FcmHttpV1\FcmTopicHelper;
+use dev0ehab\FcmHttpV1\FcmTopicHelper;
 
 $tokens = ["first token", ... , "last token"];
 FcmTopicHelper::subscribeToTopic($tokens, "myTopic");
@@ -125,7 +125,7 @@ FcmTopicHelper::subscribeToTopic($tokens, "myTopic");
 #### Unsubscribe
 
 ```php
-use Appy\FcmHttpV1\FcmTopicHelper;
+use dev0ehab\FcmHttpV1\FcmTopicHelper;
 
 $tokens = ["first token", ... , "last token"];
 FcmTopicHelper::unsubscribeToTopic($tokens, "myTopic");
@@ -134,7 +134,7 @@ FcmTopicHelper::unsubscribeToTopic($tokens, "myTopic");
 #### List subscriptions
 
 ```php
-use Appy\FcmHttpV1\FcmTopicHelper;
+use dev0ehab\FcmHttpV1\FcmTopicHelper;
 
 $token = "your awesome device token";
 FcmTopicHelper::getTopicsByToken($token);
@@ -147,7 +147,7 @@ You can send notification to specific user or to topics.
 
 ### Send to unique token
 ```php
-use Appy\FcmHttpV1\FcmNotification;
+use dev0ehab\FcmHttpV1\FcmNotification;
 
 $notif = new FcmNotification();
 $notif->setTitle("Title")->setBody("Message here")->setIcon("icon.png")->setToken("put device token here")->setClickAction("/news")->send();
@@ -156,7 +156,7 @@ $notif->setTitle("Title")->setBody("Message here")->setIcon("icon.png")->setToke
 
 ### Send to topic
 ```php
-use Appy\FcmHttpV1\FcmNotification;
+use dev0ehab\FcmHttpV1\FcmNotification;
 
 $notif = new FcmNotification();
 $notif->setTitle("Title")->setBody("Message here")->setIcon("icon.png")->setTopic("general_topic")->setClickAction("/news")->send();

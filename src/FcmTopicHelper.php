@@ -1,6 +1,6 @@
 <?php
 
-namespace Appy\FcmHttpV1;
+namespace dev0ehab\FcmHttpV1;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;

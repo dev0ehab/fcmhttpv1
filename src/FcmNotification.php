@@ -1,11 +1,11 @@
 <?php
 
-namespace Appy\FcmHttpV1;
+namespace dev0ehab\FcmHttpV1;
 
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
-use Appy\FcmHttpV1\FcmGoogleHelper;
+use dev0ehab\FcmHttpV1\FcmGoogleHelper;
 
 
 class FcmNotification
