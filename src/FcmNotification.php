@@ -129,7 +129,21 @@ class FcmNotification
                     "body" => $this->body,
                     'image' => $this->image ?? '',
                 ],
-                'data' => $this->additionalData ?? [],
+                'data' => $this->additionalData ?? '{}',
+
+                "android" => [
+                    "notification" => [
+                        'notification_count' => 1,
+                    ],
+                ],
+
+                "apns" => [
+                    "payload" => [
+                        "aps" => [
+                            'badge' => 1
+                        ]
+                    ]
+                ]
             ]
         ];
 
