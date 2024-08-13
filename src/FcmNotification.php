@@ -129,7 +129,7 @@ class FcmNotification
                     "body" => $this->body,
                     'image' => $this->image ?? '',
                 ],
-                'data' => $this->additionalData ?? [],
+                'data' => $this->additionalData,
 
                 "android" => [
                     "notification" => [
