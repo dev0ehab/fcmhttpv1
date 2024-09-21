@@ -38,16 +38,6 @@ class FcmNotification
     }
 
     /**
-     *Link of the notification when user click on it.
-     *@param string $click_action
-     */
-    public function setClickAction($click_action)
-    {
-        $this->click_action = $click_action;
-        return $this;
-    }
-
-    /**
      *Token used to send notification to specific device. Unusable with setToken() at same time.
      *@param string $string
      */
